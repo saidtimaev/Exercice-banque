@@ -79,9 +79,29 @@ Class Titulaire
         return $this;
     }
 
+    public function afficherAge()
+    {
+        $dateCourante = new DateTime;
+        $age = $dateCourante->diff($this->_dateNaissance);
+        
+        return $age->y;
+
+    }
+
     public function addCompteBancaire(CompteBancaire $compteBancaire)
     {
         $this->_comptesBancaires[] = $compteBancaire;
+    }
+
+    public function afficherInfosComptes()
+    {
+        $result = "<h1>Comptes de $this, ".$this->afficherAge()." ans :</h1><br>";
+        foreach($this->_comptesBancaires as $compteBancaire)
+        {
+            $result .= "<h2>$compteBancaire :</h2>".
+                        "Le solde de ce compte est de ".$compteBancaire->getSoldeInitial()." ".$compteBancaire->getDevise()."<br><br>";
+        }
+        return $result;
     }
 
     public function __toString()
