@@ -11,3 +11,7 @@ $compte3 = new CompteBancaire("Compte épargne", 9863.56, "€", $titulaire1);
 
 
 echo $titulaire1->afficherInfosComptes();
+$compte2->effectuerVirement(1546.8, $compte1);
+echo $titulaire1->afficherInfosComptes();
+
+

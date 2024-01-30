@@ -69,12 +69,12 @@ Class Titulaire
 
     public function getCompteBancaires()
     {
-        return $this->_compteBancaire;
+        return $this->_compteBancaires;
     }
 
     public function setCompteBancaires($compteBancaires)
     {
-        $this->_compteBancaire = $compteBancaire;
+        $this->_compteBancaires = $compteBancaire;
 
         return $this;
     }

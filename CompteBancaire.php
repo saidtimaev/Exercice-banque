@@ -65,14 +65,35 @@ Class CompteBancaire
         return $this;
     }
 
-    public function crediterCompte($montant)
+    public function crediterCompte(float $montantCredit)
     {
-        $this->_soldeInitial += $montant;
+        $this->_soldeInitial += $montantCredit;
+        echo "Le compte '$this' a été crédité de ".$montantCredit." ".$this->_devise."<br>";
+        echo "Nouveau solde du compte $this ".$this->_soldeInitial." ".$this->_devise."<br><br>";
     }
 
-    public function debiterCompte($montant)
+    public function debiterCompte(float $montantDebit)
     {
-        $this->_soldeInitial -= $montant;
+        if ($this->_soldeInitial < $montantDebit)
+        {
+            echo "Solde insuffisant, votre contrat ne vous permet pas le découvert.<br>";
+            return false;
+        }
+        
+        $this->_soldeInitial -= $montantDebit;
+        echo "Le compte '$this' a été débité de ".$montantDebit." ".$this->_devise."<br>";
+        echo "Nouveau solde du compte '$this' ".$this->_soldeInitial." ".$this->_devise."<br><br>";
+        return true;
+      
+    }
+
+    public function effectuerVirement(float $montantVirement, CompteBancaire $compteDestinataire)
+    {
+        if ($this->debiterCompte($montantVirement))
+        {
+            $compteDestinataire->crediterCompte($montantVirement);
+        }
+        
     }
 
     public function __toString()
