@@ -14,7 +14,7 @@ Class Titulaire
         $this->_prenom = $prenom;
         $this->_dateNaissance = new DateTime($dateNaissance);
         $this->_ville = $ville;
-        $this->_compteBancaires = [];
+        $this->_compteBancaires = []; // Crée un tableau Comptes bancaires vide à la création de l'objet Titulaire, le tableau contiendra des objets CompteBancaire
     }
 
  
@@ -79,20 +79,27 @@ Class Titulaire
         return $this;
     }
 
+    // Fonction qui permet d'afficher l'âge du titulaire
     public function afficherAge()
     {
+        // Crée on objet de la classe DateTime dans lequel on n'a pas spécifié de paramètres, ce qui va créer une objet avec la date actuelle au moment de création
         $dateCourante = new DateTime;
+
+        // On crée un objet $age dont la date sera égale à la différence entre la date actuelle et la date de naissance du titulaire
         $age = $dateCourante->diff($this->_dateNaissance);
         
+        // On renvoie notre objet date $age auquel on applique un format y (années)
         return $age->y;
 
     }
 
+    // Fonction qui permet d'ajouter un objet de la classe CompteBancaire dans le tableau de la propriété _ComptesBancaires de la classe Titulaire
     public function addCompteBancaire(CompteBancaire $compteBancaire)
     {
         $this->_comptesBancaires[] = $compteBancaire;
     }
 
+    // Fonction qui va afficher les informations des comptes du titulaire
     public function afficherInfosComptes()
     {
         $result = "<h1>Comptes de $this, ".$this->afficherAge()." ans :</h1><br>";

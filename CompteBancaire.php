@@ -13,6 +13,8 @@ Class CompteBancaire
         $this->_soldeInitial = $soldeInitial;
         $this->_devise = $devise;
         $this->_titulaire = $titulaire;
+
+        // Ajoute l'objet CompteBancaire à sa création dans le tableau de l'objet de la classe Titulaire
         $this->_titulaire->addCompteBancaire($this);
     }
 
@@ -65,6 +67,7 @@ Class CompteBancaire
         return $this;
     }
 
+    // Fonction qui va créditer le compte d'un montant indiqué
     public function crediterCompte(float $montantCredit)
     {
         $this->_soldeInitial += $montantCredit;
@@ -72,6 +75,7 @@ Class CompteBancaire
         echo "Nouveau solde du compte $this ".$this->_soldeInitial." ".$this->_devise."<br><br>";
     }
 
+    // Fonction qui va débiter le compte d'un montant indiqué
     public function debiterCompte(float $montantDebit)
     {
         if ($this->_soldeInitial < $montantDebit)
@@ -84,16 +88,16 @@ Class CompteBancaire
         echo "Le compte '$this' a été débité de ".$montantDebit." ".$this->_devise."<br>";
         echo "Nouveau solde du compte '$this' ".$this->_soldeInitial." ".$this->_devise."<br><br>";
         return true;
-      
     }
 
+    // Fonction qui va effectuer un virement d'un compte à l'autre
     public function effectuerVirement(float $montantVirement, CompteBancaire $compteDestinataire)
     {
         if ($this->debiterCompte($montantVirement))
         {
             $compteDestinataire->crediterCompte($montantVirement);
         }
-        
+
     }
 
     public function __toString()
